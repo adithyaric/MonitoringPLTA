@@ -1,25 +1,6 @@
 <?php include "header.php"; ?>
 <?php include "koneksi.php"; ?>
-<?php
-
-function colm($koneksi, $param)
-{
-    $column = "SELECT $param as count FROM tb_grafik ORDER BY id ASC";
-    $value = mysqli_query($koneksi, $column);
-    $value = mysqli_fetch_all($value, MYSQLI_ASSOC);
-    $value = json_encode(array_column($value, 'count'), JSON_NUMERIC_CHECK);
-
-    return $value;
-}
-
-$created_at = colm($koneksiMonitoring, 'created_at');
-$tegangan = colm($koneksiMonitoring, 'tegangan');
-$arus_sebelum_bc = colm($koneksiMonitoring, 'arus_sebelum_bc');
-$arus_sebelum_ca = colm($koneksiMonitoring, 'arus_sebelum_ca');
-$kecepatan_angin = colm($koneksiMonitoring, 'kecepatan_angin');
-$intensitas = colm($koneksiMonitoring, 'intensitas_cahaya');
-
-?>
+<?php include "chart.php"; ?>
 
 <div class="mt-3 jumbotron text-center">
 
@@ -32,7 +13,6 @@ $intensitas = colm($koneksiMonitoring, 'intensitas_cahaya');
 
 <div class="container-fluid mt-5">
     <div class="row">
-
         <?php
         $no = 1;
         $data_statistik = $koneksiMonitoring->query("SELECT * FROM tb_artikel ORDER BY id ASC");
@@ -60,6 +40,12 @@ $intensitas = colm($koneksiMonitoring, 'intensitas_cahaya');
         <?php
         }
         ?>
+    </div>
+</div>
+
+<div class="container">
+    <div id="link_wrapper">
+
     </div>
 </div>
 
@@ -104,4 +90,24 @@ $intensitas = colm($koneksiMonitoring, 'intensitas_cahaya');
     </div>
 </form>
 <!-- End Modal  detail-->
+
+<script>
+    function loadXMLDoc() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("link_wrapper").innerHTML = this.responseText;
+            }
+        };
+        xhttp.open("GET", "chart.php", true);
+        xhttp.send();
+    }
+
+    setInterval(function() {
+        loadXMLDoc();
+        //1 second
+    }, 1000)
+
+    window.onload = loadXMLDoc;
+</script>
 <?php include "footer.php"; ?>
