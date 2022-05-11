@@ -1,5 +1,5 @@
 <?php
-$koneksiMonitoring = new mysqli("localhost", "root", "", "db_monitoring");
+$koneksiMonitoring = new mysqli("localhost", "root", "", "db_monitoring_old");
 
 // Check connection
 if ($koneksiMonitoring->connect_errno) {
