@@ -1,6 +1,5 @@
 <?php include "header.php"; ?>
 <?php include "koneksi.php"; ?>
-<?php include "chart.php"; ?>
 
 <div class="mt-3 jumbotron text-center">
 
@@ -43,22 +42,275 @@
     </div>
 </div>
 
-<div class="container">
-    <div id="link_wrapper">
-
-    </div>
-</div>
-
 <!-- highcharts.js -->
-<script language="JavaScript">
-    var data_created_at = <?php echo $created_at; ?>;
-    var data_tegangan = <?php echo $tegangan; ?>;
-    var data_arus_sebelum_bc = <?php echo $arus_sebelum_bc; ?>;
-    var data_arus_sebelum_ca = <?php echo $arus_sebelum_ca; ?>;
-    var data_kecepatan_angin = <?php echo $kecepatan_angin; ?>;
-    var data_intensitas = <?php echo $intensitas; ?>;
+<script>
+    // $(document).ready(function() {
+    //     selesai();
+    // });
+
+    // function selesai() {
+    //     setTimeout(function() {
+    //         update();
+    //         selesai();
+    //     }, 1000);
+    // }
+
+    var data_created_at = []
+    var data_tegangan = []
+    var data_arus_sebelum_bc = []
+    var data_arus_sebelum_ca = []
+    var data_kecepatan_angin = []
+    var data_intensitas = []
+
+    // function update() {
+    $.ajax({
+        url: 'data.php',
+        type: 'GET',
+        dataType: 'JSON',
+        success: function(response) {
+            var length = response.length;
+
+            for (let i = 0; i < length; i++) {
+                data_created_at.push(response[i].created_at);
+                data_tegangan.push(response[i].tegangan);
+                data_arus_sebelum_bc.push(response[i].arus_sebelum_bc);
+                data_arus_sebelum_ca.push(response[i].arus_sebelum_ca);
+                data_kecepatan_angin.push(response[i].kecepatan_angin);
+                data_intensitas.push(response[i].intensitas_cahaya);
+            }
+        }
+    })
+    // }
+
+    console.log(data_tegangan);
+
+    
+    Highcharts.chart("container1", {
+        title: {
+            text: "Tegangan dan Arus Sebelum Boost",
+        },
+
+        yAxis: {
+            title: {
+                text: "Satuan e opo ra erti",
+            },
+        },
+
+        xAxis: {
+            categories: data_created_at,
+            title: {
+                enabled: true,
+                text: "Satuan e opo ra erti",
+            },
+        },
+
+        legend: {
+            layout: "vertical",
+            align: "right",
+            verticalAlign: "middle",
+        },
+
+        plotOptions: {
+            series: {
+                label: {
+                    connectorAllowed: false,
+                },
+            },
+        },
+
+        series: [{
+                name: "Tegangan",
+                data: data_tegangan,
+            },
+            {
+                name: "Arus Sebelum Boost",
+                data: data_arus_sebelum_bc,
+            },
+        ],
+
+        responsive: {
+            rules: [{
+                condition: {
+                    maxWidth: 500,
+                },
+                chartOptions: {
+                    legend: {
+                        layout: "horizontal",
+                        align: "center",
+                        verticalAlign: "bottom",
+                    },
+                },
+            }, ],
+        },
+    });
+
+    Highcharts.chart("container2", {
+        title: {
+            text: "Tegangan dan Arus Sebelum Charger Aki",
+        },
+
+        yAxis: {
+            title: {
+                text: "Number of Employees",
+            },
+        },
+
+        xAxis: {
+            categories: data_created_at,
+            title: {
+                enabled: true,
+                text: "Satuan e opo ra erti",
+            },
+        },
+
+        legend: {
+            layout: "vertical",
+            align: "right",
+            verticalAlign: "middle",
+        },
+
+        plotOptions: {
+            series: {
+                label: {
+                    connectorAllowed: false,
+                },
+            },
+        },
+
+        series: [{
+                name: "Tegangan",
+                data: data_tegangan,
+            },
+            {
+                name: "Arus Sebelum Charger Aki",
+                data: data_arus_sebelum_ca,
+            },
+        ],
+
+        responsive: {
+            rules: [{
+                condition: {
+                    maxWidth: 500,
+                },
+                chartOptions: {
+                    legend: {
+                        layout: "horizontal",
+                        align: "center",
+                        verticalAlign: "bottom",
+                    },
+                },
+            }, ],
+        },
+    });
+
+    Highcharts.chart("container3", {
+        title: {
+            text: "Kecepatan Angin",
+        },
+
+        yAxis: {
+            title: {
+                text: "Number of Employees",
+            },
+        },
+
+        xAxis: {
+            categories: data_created_at,
+            title: {
+                enabled: true,
+                text: "Satuan e opo ra erti",
+            },
+        },
+
+        legend: {
+            layout: "vertical",
+            align: "right",
+            verticalAlign: "middle",
+        },
+
+        plotOptions: {
+            series: {
+                label: {
+                    connectorAllowed: false,
+                },
+            },
+        },
+
+        series: [{
+            name: "Kecepatan Angin",
+            data: data_kecepatan_angin,
+        }, ],
+
+        responsive: {
+            rules: [{
+                condition: {
+                    maxWidth: 500,
+                },
+                chartOptions: {
+                    legend: {
+                        layout: "horizontal",
+                        align: "center",
+                        verticalAlign: "bottom",
+                    },
+                },
+            }, ],
+        },
+    });
+
+    Highcharts.chart("container4", {
+        title: {
+            text: "Intensitas Cahaya Matahari",
+        },
+
+        yAxis: {
+            title: {
+                text: "Number of Employees",
+            },
+        },
+
+        xAxis: {
+            categories: data_created_at,
+            title: {
+                enabled: true,
+                text: "Satuan e opo ra erti",
+            },
+        },
+
+        legend: {
+            layout: "vertical",
+            align: "right",
+            verticalAlign: "middle",
+        },
+
+        plotOptions: {
+            series: {
+                label: {
+                    connectorAllowed: false,
+                },
+            },
+        },
+
+        series: [{
+            name: "Intensitas",
+            data: data_intensitas,
+        }, ],
+
+        responsive: {
+            rules: [{
+                condition: {
+                    maxWidth: 500,
+                },
+                chartOptions: {
+                    legend: {
+                        layout: "horizontal",
+                        align: "center",
+                        verticalAlign: "bottom",
+                    },
+                },
+            }, ],
+        },
+    });
 </script>
-<script src="chart.js"></script>
 
 <!-- Modal  detail-->
 <form enctype="multipart/form-data" class="needs-validation" novalidate>
@@ -90,24 +342,4 @@
     </div>
 </form>
 <!-- End Modal  detail-->
-
-<script>
-    function loadXMLDoc() {
-        var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                document.getElementById("link_wrapper").innerHTML = this.responseText;
-            }
-        };
-        xhttp.open("GET", "chart.php", true);
-        xhttp.send();
-    }
-
-    setInterval(function() {
-        loadXMLDoc();
-        //1 second
-    }, 1000)
-
-    window.onload = loadXMLDoc;
-</script>
 <?php include "footer.php"; ?>
