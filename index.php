@@ -42,7 +42,40 @@
     </div>
 </div>
 
+<script>
+    // AJAX
+    var xmlhttp = new XMLHttpRequest();
+    var url = "data.php";
+
+    xmlhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            var myArr = JSON.parse(this.responseText);
+            myFunction(myArr);
+        }
+    };
+    xmlhttp.open("GET", url, true);
+    xmlhttp.send();
+
+    function myFunction(arr) {
+        var out = [];
+        var i;
+        for (i = 0; i < arr.length; i++) {
+            out.push(arr[i].tegangan);
+        }
+        console.log(out);
+    }
+
+    // Fetch
+    const link = "data.php";
+    fetch(link)
+        .then(
+            response => response.text() // .json(), .blob(), etc.
+        ).then(
+            text => console.log(text) // Handle here
+        );
+</script>
 <!-- highcharts.js -->
+
 <script>
     var data_created_at = []
     var data_tegangan = []
@@ -50,24 +83,28 @@
     var data_arus_sebelum_ca = []
     var data_kecepatan_angin = []
     var data_intensitas = []
+    // AJAX Jquery
     $(document).ready(function() {
         $.ajax({
-            url: 'data.php',
-            type: 'GET',
-            dataType: 'JSON',
-            success: function(response) {
+            url: "data.php",
+            contentType: 'application/json; charset=utf-8',
+            type: "GET",
+            dataType: "JSON",
+            error: function(xhr, status) {
+                alert(status);
+            },
+            success: function(response) {                
                 var length = response.length;
 
-                for (let i = 0; i < length; i++) {
+                for (var i = 0; i < length; i++) {
                     data_created_at.push(response[i].created_at);
                     data_tegangan.push(response[i].tegangan);
                     data_arus_sebelum_bc.push(response[i].arus_sebelum_bc);
                     data_arus_sebelum_ca.push(response[i].arus_sebelum_ca);
                     data_kecepatan_angin.push(response[i].kecepatan_angin);
-                    data_intensitas.push(response[i].intensitas);
+                    data_intensitas.push(response[i].intensitas_cahaya);
                 }
 
-                console.log(data_intensitas);
                 Highcharts.chart("container1", {
                     title: {
                         text: "Tegangan dan Arus Sebelum Boost",
