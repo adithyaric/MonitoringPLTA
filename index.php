@@ -8,6 +8,8 @@
         <a href="crud.php"><button type="button" class="btn btn-primary">Edit Artikel</button></a>
         <a href="#"><button type="button" class="btn btn-danger">Buttons</button></a>
     </p>
+    <label>lampu</label>
+    <img src="" alt="lampu" id="lampu" class="rounded mx-auto d-block" width="100px">
 </div>
 
 <div class="container-fluid mt-5">
@@ -41,48 +43,43 @@
         ?>
     </div>
 </div>
-
+<!-- lampu -->
+<?php include "data_lampu.php"; ?>
 <script>
-    // AJAX
-    var xmlhttp = new XMLHttpRequest();
-    var url = "data.php";
+    $(document).ready(function() {
+        selesai();
+    });
 
-    xmlhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            var myArr = JSON.parse(this.responseText);
-            myFunction(myArr);
-        }
-    };
-    xmlhttp.open("GET", url, true);
-    xmlhttp.send();
-
-    function myFunction(arr) {
-        var out = [];
-        var i;
-        for (i = 0; i < arr.length; i++) {
-            out.push(arr[i].tegangan);
-        }
-        console.log(out);
+    function selesai() {
+        setTimeout(function() {
+            update();
+            selesai();
+        }, 1000);
     }
 
-    // Fetch
-    const link = "data.php";
-    fetch(link)
-        .then(
-            response => response.text() // .json(), .blob(), etc.
-        ).then(
-            text => console.log(text) // Handle here
-        );
+    function update() {
+        $.getJSON("data_lampu.php", function(data) {
+            $.each(data, function() {
+                const data_lampu = data;
+                // $("lampu").val(data_lampu);
+                if (data_lampu == 0) {
+                    $("#lampu").attr("src", "img/off.png");
+                } else {
+                    $("#lampu").attr("src", "img/on.png");
+                }
+            });
+        });
+    }
 </script>
 <!-- highcharts.js -->
-
 <script>
-    var data_created_at = []
-    var data_tegangan = []
-    var data_arus_sebelum_bc = []
-    var data_arus_sebelum_ca = []
-    var data_kecepatan_angin = []
-    var data_intensitas = []
+    var data_created_at = [];
+    var data_tegangan = [];
+    var data_arus_sebelum_bc = [];
+    var data_arus_sebelum_ca = [];
+    var data_kecepatan_angin = [];
+    var data_intensitas_cahaya = [];
+
     // AJAX Jquery
     $(document).ready(function() {
         $.ajax({
@@ -93,7 +90,7 @@
             error: function(xhr, status) {
                 alert(status);
             },
-            success: function(response) {                
+            success: function(response) {
                 var length = response.length;
 
                 for (var i = 0; i < length; i++) {
@@ -102,7 +99,7 @@
                     data_arus_sebelum_bc.push(response[i].arus_sebelum_bc);
                     data_arus_sebelum_ca.push(response[i].arus_sebelum_ca);
                     data_kecepatan_angin.push(response[i].kecepatan_angin);
-                    data_intensitas.push(response[i].intensitas_cahaya);
+                    data_intensitas_cahaya.push(response[i].intensitas_cahaya);
                 }
 
                 Highcharts.chart("container1", {
@@ -312,7 +309,7 @@
 
                     series: [{
                         name: "Intensitas",
-                        data: data_intensitas,
+                        data: data_intensitas_cahaya,
                     }, ],
 
                     responsive: {
@@ -330,7 +327,6 @@
                         }, ],
                     },
                 });
-
             }
         });
     });

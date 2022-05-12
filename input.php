@@ -3,7 +3,10 @@ header("Content-Type: application/json; charset=UTF-8");
 include "koneksi.php";
 date_default_timezone_set('Asia/Jakarta');
 
-$data = 0; //Ambil dari db dengan AJAX
+	$column = "SELECT data as count FROM tb_lampu";
+	$data = mysqli_query($koneksi, $column);
+	$data = mysqli_fetch_all($data, MYSQLI_ASSOC);
+	$data = json_encode(array_column($data, 'count'), JSON_NUMERIC_CHECK);
 
 $lampu = array("data_lampu" => $data);
 
@@ -38,6 +41,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 	}
 }
-
-?>
-

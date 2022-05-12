@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <table align="center" border=1>
+    <table align="center" border=1 id="myTable">
 
     </table>
     <?php include "data.php"; ?>
@@ -31,12 +31,12 @@
 
         function update() {
             $.getJSON("data.php", function(data) {
-                $("table").empty();
+                $("#myTable").empty();
                 var no = 1;
                 $.each(data, function() {
                     data_tegangan = this['tegangan'];
                     data_intensitas_cahaya = this['intensitas_cahaya'];
-                    $("table").append("<tr><td>" + (no++) + "</td><td>" + data_tegangan + "</td><td>" + data_intensitas_cahaya + "</td></tr>");
+                    $("#myTable").append("<tr><td>" + (no++) + "</td><td>" + data_tegangan + "</td><td>" + data_intensitas_cahaya + "</td></tr>");
                 });
             });
         }
