@@ -1,5 +1,5 @@
 <?php
-require 'koneksi.php';
+require '../koneksi.php';
 // Kosongkan table gafik
 // $koneksiMonitoring->query("TRUNCATE TABLE grafik");
 
