@@ -4,22 +4,17 @@
 <div class="container-fluid mt-5">
     <div class="row align-items-center">
         <div class="col-sm-6 mb-5">
-            <div class="">
+            <div class="text-center">
                 <h1 class="display-4">Monitoring PLTA</h1>
             </div>
         </div>
         <div class="col-sm-6 mb-5">
-            <div class="">
-                <img src="" alt="lampu" id="lampu" class="rounded mx-auto d-block mt-3" width="50%">
+            <div class="card">
+                <img src="" alt="lampu" id="lampu" class="rounded mx-auto d-block mt-3" width="35%">
                 <div class="card-body">
-                    <!-- <select name="switchLamp" id="mod" data-role="slider">
-                        <option value="0">Off</option>
-                        <option value="1">On</option>
-                    </select>
-                    <button type="submit" class="btn btn-warning" id="update">Pilih</button> -->
                     <center>
                         <label class="switch">
-                            <input class="switch-input" id="switch-input" type="checkbox" />
+                            <input class="switch-input" type="checkbox" />
                             <span class="switch-label" data-on="1" data-off="0"></span>
                             <span class="switch-handle"></span>
                         </label>
@@ -86,56 +81,59 @@
 <!-- End Modal  detail-->
 
 <script>
-    $('#switch-input').on('change', function() {
-        var isChecked = $(this).is(':checked');
-        var selectedData;
-        var $switchLabel = $('.switch-label');
-        console.log('isChecked: ' + isChecked);
+    // Usage
+    $(document).ready(function() {
+        selesai();
+        $('.switch-input').on('change', function() {
+            var isChecked = $(this).is(':checked');
+            var selectedData;
+            var $switchLabel = $('.switch-label');
 
-        if (isChecked) {
-            selectedData = $switchLabel.attr('data-on');
-        } else {
-            selectedData = $switchLabel.attr('data-off');
-        }
+            if (isChecked) {
+                selectedData = $switchLabel.attr('data-on');
+            } else {
+                selectedData = $switchLabel.attr('data-off');
+            }
+            $.ajax({
+                url: "data_lampu_update.php",
+                method: "POST",
+                data: {
+                    data: selectedData,
+                },
+                success: function(response) {
+                    // alert(response);
+                },
+            });
 
-        console.log('Selected data: ' + selectedData);
-        $.ajax({
-            url: "data_lampu_update.php",
-            method: "POST",
-            data: {
-                data: selectedData,
-            },
-            success: function(response) {
-                // alert(response);
-            },
         });
-
     });
 
-    // Params ($selector, boolean)
     function setSwitchState(el, flag) {
         el.attr('checked', flag);
     }
 
-    // Usage
-    setSwitchState($('.switch-input'), true);
+    function selesai() {
+        setTimeout(function() {
+            update();
+            selesai();
+        }, 1000);
+    }
 
-    // $("#update").click(function() {
-    //     var data = $("#mod").val();
-    //     console.log(data);
-    //     $.ajax({
-    //         url: "data_lampu_update.php",
-    //         method: "POST",
-    //         data: {
-    //             data: data,
-    //         },
-    //         success: function(response) {
-    //             // alert(response);
-    //         },
-    //     });
-    // });
+    function update() {
+        $.getJSON("data_lampu.php", function(data) {
+            $.each(data, function() {
+                const data_lampu = data;
+                if (data_lampu == 0) {
+                    $("#lampu").attr("src", "./assets/img/off.png");
+                    setSwitchState($(".switch-input"), false);
+                } else {
+                    $("#lampu").attr("src", "./assets/img/on.png");
+                    setSwitchState($(".switch-input"), true);
+                }
+            });
+        });
+    }
 </script>
 <!-- highcharts.js -->
 <script src="assets/chart.js"></script>
-<script src="assets/lampu.js"></script>
 <?php include "footer.php"; ?>
