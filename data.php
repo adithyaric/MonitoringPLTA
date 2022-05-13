@@ -1,4 +1,5 @@
-<?php include "koneksi.php";
+<?php
+include "koneksi.php";
 
 $return_array = array();
 
@@ -22,7 +23,7 @@ while ($row = mysqli_fetch_assoc($result)) {
         "kecepatan_angin" => $kecepatan_angin,
         "intensitas_cahaya" => $intensitas_cahaya,
     );
-//    $data[] = $row;
+    //    $data[] = $row;
 }
 
 // Encoding array in JSON Format

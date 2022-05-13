@@ -1,3 +1,4 @@
+// Variable Global
 var data_created_at = [];
 var data_tegangan = [];
 var data_arus_sebelum_bc = [];
@@ -7,265 +8,288 @@ var data_intensitas_cahaya = [];
 
 // AJAX Jquery
 $(document).ready(function () {
-  $.ajax({
-    url: "data.php",
-    contentType: "application/json; charset=utf-8",
-    type: "GET",
-    dataType: "JSON",
-    error: function (xhr, status) {
-      alert(status);
-    },
-    success: function (response) {
-      var length = response.length;
-
-      for (var i = 0; i < length; i++) {
-        data_created_at.push(response[i].created_at);
-        data_tegangan.push(response[i].tegangan);
-        data_arus_sebelum_bc.push(response[i].arus_sebelum_bc);
-        data_arus_sebelum_ca.push(response[i].arus_sebelum_ca);
-        data_kecepatan_angin.push(response[i].kecepatan_angin);
-        data_intensitas_cahaya.push(response[i].intensitas_cahaya);
+  function resetArray() {
+    window.setInterval(function () {
+      if (data_created_at.length > 0) {
+        data_created_at = [];
+        data_tegangan = [];
+        data_arus_sebelum_bc = [];
+        data_arus_sebelum_ca = [];
+        data_kecepatan_angin = [];
+        data_intensitas_cahaya = [];
       }
+    }, 3000);
+  }
 
-      Highcharts.chart("container1", {
-        title: {
-          text: "Tegangan dan Arus Sebelum Boost",
-        },
+  function requestData() {
+    $.ajax({
+      url: "data.php",
+      contentType: "application/json; charset=utf-8",
+      type: "GET",
+      dataType: "JSON",
+      success: function (response) {
+        var length = response.length;
 
-        yAxis: {
+        for (var i = 0; i < length; i++) {
+          data_created_at.push(response[i].created_at);
+          data_tegangan.push(response[i].tegangan);
+          data_arus_sebelum_bc.push(response[i].arus_sebelum_bc);
+          data_arus_sebelum_ca.push(response[i].arus_sebelum_ca);
+          data_kecepatan_angin.push(response[i].kecepatan_angin);
+          data_intensitas_cahaya.push(response[i].intensitas_cahaya);
+        }
+
+        Highcharts.chart("container1", {
           title: {
-            text: "Satuan e opo ra erti",
+            text: "Tegangan dan Arus Sebelum Boost",
           },
-        },
 
-        xAxis: {
-          categories: data_created_at,
-          title: {
-            enabled: true,
-            text: "Satuan e opo ra erti",
-          },
-        },
-
-        legend: {
-          layout: "vertical",
-          align: "right",
-          verticalAlign: "middle",
-        },
-
-        plotOptions: {
-          series: {
-            label: {
-              connectorAllowed: false,
+          yAxis: {
+            title: {
+              text: "Satuan e opo ra erti",
             },
           },
-        },
 
-        series: [
-          {
-            name: "Tegangan",
-            data: data_tegangan,
+          xAxis: {
+            categories: data_created_at,
+            title: {
+              enabled: true,
+              text: "Satuan e opo ra erti",
+            },
           },
-          {
-            name: "Arus Sebelum Boost",
-            data: data_arus_sebelum_bc,
-          },
-        ],
 
-        responsive: {
-          rules: [
+          legend: {
+            layout: "vertical",
+            align: "right",
+            verticalAlign: "middle",
+          },
+
+          plotOptions: {
+            series: {
+              label: {
+                connectorAllowed: false,
+              },
+              animation: false,
+            },
+          },
+
+          series: [
             {
-              condition: {
-                maxWidth: 500,
-              },
-              chartOptions: {
-                legend: {
-                  layout: "horizontal",
-                  align: "center",
-                  verticalAlign: "bottom",
-                },
-              },
+              name: "Tegangan",
+              data: data_tegangan,
+            },
+            {
+              name: "Arus Sebelum Boost",
+              data: data_arus_sebelum_bc,
             },
           ],
-        },
-      });
 
-      Highcharts.chart("container2", {
-        title: {
-          text: "Tegangan dan Arus Sebelum Charger Aki",
-        },
-
-        yAxis: {
-          title: {
-            text: "Number of Employees",
-          },
-        },
-
-        xAxis: {
-          categories: data_created_at,
-          title: {
-            enabled: true,
-            text: "Satuan e opo ra erti",
-          },
-        },
-
-        legend: {
-          layout: "vertical",
-          align: "right",
-          verticalAlign: "middle",
-        },
-
-        plotOptions: {
-          series: {
-            label: {
-              connectorAllowed: false,
-            },
-          },
-        },
-
-        series: [
-          {
-            name: "Tegangan",
-            data: data_tegangan,
-          },
-          {
-            name: "Arus Sebelum Charger Aki",
-            data: data_arus_sebelum_ca,
-          },
-        ],
-
-        responsive: {
-          rules: [
-            {
-              condition: {
-                maxWidth: 500,
-              },
-              chartOptions: {
-                legend: {
-                  layout: "horizontal",
-                  align: "center",
-                  verticalAlign: "bottom",
+          responsive: {
+            rules: [
+              {
+                condition: {
+                  maxWidth: 500,
+                },
+                chartOptions: {
+                  legend: {
+                    layout: "horizontal",
+                    align: "center",
+                    verticalAlign: "bottom",
+                  },
                 },
               },
+            ],
+          },
+        });
+
+        Highcharts.chart("container2", {
+          title: {
+            text: "Tegangan dan Arus Sebelum Charger Aki",
+          },
+
+          yAxis: {
+            title: {
+              text: "Number of Employees",
+            },
+          },
+
+          xAxis: {
+            categories: data_created_at,
+            title: {
+              enabled: true,
+              text: "Satuan e opo ra erti",
+            },
+          },
+
+          legend: {
+            layout: "vertical",
+            align: "right",
+            verticalAlign: "middle",
+          },
+
+          plotOptions: {
+            series: {
+              label: {
+                connectorAllowed: false,
+              },
+              animation: false,
+            },
+          },
+
+          series: [
+            {
+              name: "Tegangan",
+              data: data_tegangan,
+            },
+            {
+              name: "Arus Sebelum Charger Aki",
+              data: data_arus_sebelum_ca,
             },
           ],
-        },
-      });
 
-      Highcharts.chart("container3", {
-        title: {
-          text: "Kecepatan Angin",
-        },
-
-        yAxis: {
-          title: {
-            text: "Number of Employees",
-          },
-        },
-
-        xAxis: {
-          categories: data_created_at,
-          title: {
-            enabled: true,
-            text: "Satuan e opo ra erti",
-          },
-        },
-
-        legend: {
-          layout: "vertical",
-          align: "right",
-          verticalAlign: "middle",
-        },
-
-        plotOptions: {
-          series: {
-            label: {
-              connectorAllowed: false,
-            },
-          },
-        },
-
-        series: [
-          {
-            name: "Kecepatan Angin",
-            data: data_kecepatan_angin,
-          },
-        ],
-
-        responsive: {
-          rules: [
-            {
-              condition: {
-                maxWidth: 500,
-              },
-              chartOptions: {
-                legend: {
-                  layout: "horizontal",
-                  align: "center",
-                  verticalAlign: "bottom",
+          responsive: {
+            rules: [
+              {
+                condition: {
+                  maxWidth: 500,
+                },
+                chartOptions: {
+                  legend: {
+                    layout: "horizontal",
+                    align: "center",
+                    verticalAlign: "bottom",
+                  },
                 },
               },
+            ],
+          },
+        });
+
+        Highcharts.chart("container3", {
+          title: {
+            text: "Kecepatan Angin",
+          },
+
+          yAxis: {
+            title: {
+              text: "Number of Employees",
+            },
+          },
+
+          xAxis: {
+            categories: data_created_at,
+            title: {
+              enabled: true,
+              text: "Satuan e opo ra erti",
+            },
+          },
+
+          legend: {
+            layout: "vertical",
+            align: "right",
+            verticalAlign: "middle",
+          },
+
+          plotOptions: {
+            series: {
+              label: {
+                connectorAllowed: false,
+              },
+              animation: false,
+            },
+          },
+
+          series: [
+            {
+              name: "Kecepatan Angin",
+              data: data_kecepatan_angin,
             },
           ],
-        },
-      });
 
-      Highcharts.chart("container4", {
-        title: {
-          text: "Intensitas Cahaya Matahari",
-        },
-
-        yAxis: {
-          title: {
-            text: "Number of Employees",
-          },
-        },
-
-        xAxis: {
-          categories: data_created_at,
-          title: {
-            enabled: true,
-            text: "Satuan e opo ra erti",
-          },
-        },
-
-        legend: {
-          layout: "vertical",
-          align: "right",
-          verticalAlign: "middle",
-        },
-
-        plotOptions: {
-          series: {
-            label: {
-              connectorAllowed: false,
-            },
-          },
-        },
-
-        series: [
-          {
-            name: "Intensitas",
-            data: data_intensitas_cahaya,
-          },
-        ],
-
-        responsive: {
-          rules: [
-            {
-              condition: {
-                maxWidth: 500,
-              },
-              chartOptions: {
-                legend: {
-                  layout: "horizontal",
-                  align: "center",
-                  verticalAlign: "bottom",
+          responsive: {
+            rules: [
+              {
+                condition: {
+                  maxWidth: 500,
+                },
+                chartOptions: {
+                  legend: {
+                    layout: "horizontal",
+                    align: "center",
+                    verticalAlign: "bottom",
+                  },
                 },
               },
+            ],
+          },
+        });
+
+        Highcharts.chart("container4", {
+          title: {
+            text: "Intensitas Cahaya Matahari",
+          },
+
+          yAxis: {
+            title: {
+              text: "Number of Employees",
+            },
+          },
+
+          xAxis: {
+            categories: data_created_at,
+            title: {
+              enabled: true,
+              text: "Satuan e opo ra erti",
+            },
+          },
+
+          legend: {
+            layout: "vertical",
+            align: "right",
+            verticalAlign: "middle",
+          },
+
+          plotOptions: {
+            series: {
+              label: {
+                connectorAllowed: false,
+              },
+              animation: false,
+            },
+          },
+
+          series: [
+            {
+              name: "Intensitas",
+              data: data_intensitas_cahaya,
             },
           ],
-        },
-      });
-    },
-  });
+
+          responsive: {
+            rules: [
+              {
+                condition: {
+                  maxWidth: 500,
+                },
+                chartOptions: {
+                  legend: {
+                    layout: "horizontal",
+                    align: "center",
+                    verticalAlign: "bottom",
+                  },
+                },
+              },
+            ],
+          },
+        });
+
+        // call it again after tree second
+        setTimeout(requestData, 3000);
+        resetArray();
+      },
+      cache: false,
+    });
+  }
+
+  requestData();
 });

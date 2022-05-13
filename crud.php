@@ -45,7 +45,7 @@
 				?>
 
 				<tr>
-					<td colspan="8">
+					<td colspan="4">
 						<center>Data tidak ditemukan !</center>
 					</td>
 				</tr>
@@ -89,5 +89,26 @@
 	</div>
 </form>
 <!-- End Modal Edit detail-->
+<?php
 
+if (isset($_POST['update_detail'])) {
+	$id = $_POST['id'];
+	$judul = $_POST['judul'];
+	$penjelasan = $_POST['penjelasan'];
+
+	if (!empty($judul) || !empty($penjelasan)) {
+		$koneksiMonitoring->query("UPDATE tb_artikel SET judul = '$judul', penjelasan = '$penjelasan' WHERE id = '$id'");
+
+		$_SESSION["sukses"] = 'Data Berhasil Diedit';
+		//redirect ke halaman crud.php
+		echo "<script>window.location.href='crud.php';</script>";
+		exit;
+	} else {
+		echo "<script>alert('Mohon lengkapi semua data !');</script>";
+		echo "<script>window.location.href='crud.php';</script>";
+		exit;
+	}
+}
+
+?>
 <?php include "footer.php"; ?>
