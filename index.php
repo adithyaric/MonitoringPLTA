@@ -10,8 +10,10 @@
         </div>
         <div class="col-sm-6 mb-5">
             <div class="card">
-                <img src="" alt="lampu" id="lampu" class="rounded mx-auto d-block mt-3" width="35%">
                 <div class="card-body">
+                    <div class="card-title">
+                        <img src="" alt="lampu" id="lampu" class="rounded mx-auto d-block mt-3" width="35%">
+                    </div>
                     <center>
                         <label class="switch">
                             <input class="switch-input" type="checkbox" />
@@ -28,7 +30,7 @@
     <div class="row">
         <?php
         $no = 1;
-        $data_statistik = $koneksiMonitoring->query("SELECT * FROM tb_artikel ORDER BY id ASC");
+        $data_statistik = $koneksi->query("SELECT * FROM tb_artikel ORDER BY id ASC");
         $jumlah_data = $data_statistik->num_rows;
 
         if ($jumlah_data > 0) {

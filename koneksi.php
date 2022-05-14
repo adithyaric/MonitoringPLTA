@@ -1,9 +1,9 @@
 <?php
-$koneksiMonitoring = new mysqli("localhost", "root", "", "db_monitoring_old");
+// $koneksiMonitoring = new mysqli("localhost", "root", "", "db_monitoring");
 $koneksi = new mysqli("localhost", "root", "", "db_monitoring");
 
 // Check connection
-if ($koneksiMonitoring->connect_errno) {
-    echo "Failed to connect to MySQL: " . $koneksiMonitoring->connect_error;
+if ($koneksi->connect_errno) {
+    echo "Failed to connect to MySQL: " . $koneksi->connect_error;
     exit();
 }

@@ -22,7 +22,7 @@
 		<tbody>
 			<?php
 			$no = 1;
-			$data_statistik = $koneksiMonitoring->query("SELECT * FROM tb_artikel ORDER BY id ASC");
+			$data_statistik = $koneksi->query("SELECT * FROM tb_artikel ORDER BY id ASC");
 			$jumlah_data = $data_statistik->num_rows;
 
 			if ($jumlah_data > 0) {
@@ -97,7 +97,7 @@ if (isset($_POST['update_detail'])) {
 	$penjelasan = $_POST['penjelasan'];
 
 	if (!empty($judul) || !empty($penjelasan)) {
-		$koneksiMonitoring->query("UPDATE tb_artikel SET judul = '$judul', penjelasan = '$penjelasan' WHERE id = '$id'");
+		$koneksi->query("UPDATE tb_artikel SET judul = '$judul', penjelasan = '$penjelasan' WHERE id = '$id'");
 
 		$_SESSION["sukses"] = 'Data Berhasil Diedit';
 		//redirect ke halaman crud.php

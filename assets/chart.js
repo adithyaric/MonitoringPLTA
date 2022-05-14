@@ -1,8 +1,11 @@
 // Variable Global
 var data_created_at = [];
-var data_tegangan = [];
-var data_arus_sebelum_bc = [];
-var data_arus_sebelum_ca = [];
+var data_v_sblm_bc = [];
+var data_i_sblm_bc = [];
+var data_i_sblm_aki = [];
+var data_v_stlh_aki = [];
+var data_i_stlh_aki = [];
+var data_daya_aki = [];
 var data_kecepatan_angin = [];
 var data_intensitas_cahaya = [];
 
@@ -12,9 +15,13 @@ $(document).ready(function () {
     window.setInterval(function () {
       if (data_created_at.length > 0) {
         data_created_at = [];
-        data_tegangan = [];
-        data_arus_sebelum_bc = [];
-        data_arus_sebelum_ca = [];
+        data_v_sblm_bc = [];
+        data_i_sblm_bc = [];
+        data_i_sblm_aki = [];
+
+        data_v_stlh_aki = [];
+        data_i_stlh_aki = [];
+        data_daya_aki = [];
         data_kecepatan_angin = [];
         data_intensitas_cahaya = [];
       }
@@ -32,9 +39,14 @@ $(document).ready(function () {
 
         for (var i = 0; i < length; i++) {
           data_created_at.push(response[i].created_at);
-          data_tegangan.push(response[i].tegangan);
-          data_arus_sebelum_bc.push(response[i].arus_sebelum_bc);
-          data_arus_sebelum_ca.push(response[i].arus_sebelum_ca);
+
+          data_v_sblm_bc.push(response[i].v_sblm_bc);
+          data_i_sblm_bc.push(response[i].i_sblm_bc);
+          data_i_sblm_aki.push(response[i].i_sblm_aki);
+
+          data_v_stlh_aki.push(response[i].v_stlh_aki);
+          data_i_stlh_aki.push(response[i].i_stlh_aki);
+          data_daya_aki.push(response[i].daya_aki);
           data_kecepatan_angin.push(response[i].kecepatan_angin);
           data_intensitas_cahaya.push(response[i].intensitas_cahaya);
         }
@@ -75,12 +87,12 @@ $(document).ready(function () {
 
           series: [
             {
-              name: "Tegangan",
-              data: data_tegangan,
+              name: "Tegangan Sebelum Boost",
+              data: data_v_sblm_bc,
             },
             {
               name: "Arus Sebelum Boost",
-              data: data_arus_sebelum_bc,
+              data: data_i_sblm_bc,
             },
           ],
 
@@ -139,11 +151,11 @@ $(document).ready(function () {
           series: [
             {
               name: "Tegangan",
-              data: data_tegangan,
+              data: data_v_sblm_bc,
             },
             {
               name: "Arus Sebelum Charger Aki",
-              data: data_arus_sebelum_ca,
+              data: data_i_sblm_aki,
             },
           ],
 
@@ -260,8 +272,74 @@ $(document).ready(function () {
 
           series: [
             {
-              name: "Intensitas",
+              name: "Intensitas Cahaya",
               data: data_intensitas_cahaya,
+            },
+          ],
+
+          responsive: {
+            rules: [
+              {
+                condition: {
+                  maxWidth: 500,
+                },
+                chartOptions: {
+                  legend: {
+                    layout: "horizontal",
+                    align: "center",
+                    verticalAlign: "bottom",
+                  },
+                },
+              },
+            ],
+          },
+        });
+        Highcharts.chart("container5", {
+          title: {
+            text: "Tegangan, Arus, dan daya Setelah Aki ",
+          },
+
+          yAxis: {
+            title: {
+              text: "Number of Employees",
+            },
+          },
+
+          xAxis: {
+            categories: data_created_at,
+            title: {
+              enabled: true,
+              text: "Satuan e opo ra erti",
+            },
+          },
+
+          legend: {
+            layout: "vertical",
+            align: "right",
+            verticalAlign: "middle",
+          },
+
+          plotOptions: {
+            series: {
+              label: {
+                connectorAllowed: false,
+              },
+              animation: false,
+            },
+          },
+
+          series: [
+            {
+              name: "Tegangan",
+              data: data_v_stlh_aki,
+            },
+            {
+              name: "Intensitas Cahaya",
+              data: data_i_stlh_aki,
+            },
+            {
+              name: "Daya Aki",
+              data: data_daya_aki,
             },
           ],
 

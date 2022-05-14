@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.2
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: May 11, 2022 at 09:23 AM
+-- Generation Time: May 14, 2022 at 07:19 AM
 -- Server version: 5.7.33
--- PHP Version: 7.4.19
+-- PHP Version: 7.4.24
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -39,10 +39,11 @@ CREATE TABLE `tb_artikel` (
 --
 
 INSERT INTO `tb_artikel` (`id`, `created_at`, `judul`, `penjelasan`) VALUES
-(1, '2022-05-09 21:55:23', 'Lorem ipsum dolor sit amet consectetur.', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, quas? Blanditiis ullam sit mollitia suscipit reprehenderit, optio non porro'),
+(1, '2022-05-09 21:55:23', 'Edited', 'Edited\r\n'),
 (2, '2022-05-09 21:55:23', 'Lorem ipsum dolor sit amet.', 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. In quibusdam quidem dolorum repellendus, voluptatum minima nemo dicta quae accusantium atque dignissimos.'),
 (3, '2022-05-10 12:04:18', 'Lorem ipsum dolor, sit amet consectetur adipisicing.', 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Culpa ullam quasi unde. Provident accusantium, dolores quis, blanditiis sit cum quaerat veniam nostrum molestias tenetur culpa minus nemo beatae vitae alias.'),
-(4, '2022-05-10 12:04:18', 'Lorem ipsum dolor sit amet consectetur.', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos, assumenda pariatur amet accusantium id a voluptatum dolor aperiam perferendis. Perferendis omnis sequi natus, architecto facilis iste. Fugiat rerum eligendi quisquam!');
+(4, '2022-05-10 12:04:18', 'Lorem ipsum dolor sit amet consectetur.', 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos, assumenda pariatur amet accusantium id a voluptatum dolor aperiam perferendis. Perferendis omnis sequi natus, architecto facilis iste. Fugiat rerum eligendi quisquam!'),
+(5, '2022-05-14 13:33:31', 'Terakhir', 'The Last');
 
 -- --------------------------------------------------------
 
@@ -11821,13 +11822,13 @@ ALTER TABLE `tb_lampu`
 -- AUTO_INCREMENT for table `tb_artikel`
 --
 ALTER TABLE `tb_artikel`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `tb_grafik`
 --
 ALTER TABLE `tb_grafik`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11679;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11683;
 
 --
 -- AUTO_INCREMENT for table `tb_lampu`
