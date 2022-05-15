@@ -26,6 +26,28 @@
         </div>
     </div>
 </div>
+<div class="container">
+
+    <form class="form-inline" method="GET" action="print_pdf.php" target="_blank">
+        <div class="col-md-4 text-right">
+            <select class="custom-select" name="data_select">
+                <option value="1" selected>VI Sebelum Boost Converter</option>
+                <option value="2">VI Sebelum Charger Aki</option>
+                <option value="3">VI Aki</option>
+                <option value="4">Kecepatan Angin</option>
+                <option value="5">Intensitas Cahaya</option>
+            </select>
+        </div>
+        <div class="col-md-6 text-right">
+            Dari : <input class="form-control" id="dari" name="dari_tgl" placeholder="Input tanggal" required />
+            Sampai : <input class="form-control" id="sampai" name="sampai_tgl" placeholder="Input tanggal" required />
+        </div>
+        <div class="col-md-2 text-right">
+            <button type="submit" class="btn btn-danger">Print PDF <i class="fa fa-print"></i></button>
+        </div>
+    </form>
+
+</div>
 <div class="container-fluid mt-5">
     <div class="row">
         <?php
@@ -135,6 +157,33 @@
             });
         });
     }
+</script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css" />
+<script>
+    $(document).ready(function() {
+        var date_input = $('input[id="dari"]'); //our date input has the name "date"
+        var container = $('.form').length > 0 ? $('.form').parent() : "body";
+        date_input.datepicker({
+            format: 'yyyy-mm-dd',
+            container: container,
+            todayHighlight: true,
+            autoclose: true,
+        })
+    })
+</script>
+
+<script>
+    $(document).ready(function() {
+        var date_input = $('input[id="sampai"]'); //our date input has the name "date"
+        var container = $('.form').length > 0 ? $('.form').parent() : "body";
+        date_input.datepicker({
+            format: 'yyyy-mm-dd',
+            container: container,
+            todayHighlight: true,
+            autoclose: true,
+        })
+    })
 </script>
 <!-- highcharts.js -->
 <script src="assets/chart.js"></script>
