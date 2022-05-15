@@ -25,7 +25,7 @@ $(document).ready(function () {
         data_kecepatan_angin = [];
         data_intensitas_cahaya = [];
       }
-    }, 3000);
+    }, 1000);
   }
 
   function requestData() {
@@ -362,7 +362,7 @@ $(document).ready(function () {
         });
 
         // call it again after tree second
-        setTimeout(requestData, 3000);
+        setTimeout(requestData, 1000);
         resetArray();
       },
       cache: false,
