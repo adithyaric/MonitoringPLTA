@@ -39,8 +39,8 @@
             </select>
         </div>
         <div class="col-md-6 text-right">
-            Dari : <input class="form-control" id="dari" name="dari_tgl" placeholder="Input tanggal" required />
-            Sampai : <input class="form-control" id="sampai" name="sampai_tgl" placeholder="Input tanggal" required />
+            <input class="form-control mt-3" id="dari" name="dari_tgl" placeholder="Dari tanggal" required />
+            <input class="form-control mt-3" id="sampai" name="sampai_tgl" placeholder="Sampai tanggal" required />
         </div>
         <div class="col-md-2 text-right">
             <button type="submit" class="btn btn-danger">Print PDF <i class="fa fa-print"></i></button>

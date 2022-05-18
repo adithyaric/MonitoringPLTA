@@ -3,7 +3,7 @@ include "koneksi.php";
 
 $return_array = array();
 
-$query = "SELECT * FROM tb_grafik ORDER BY id ASC";
+$query = "SELECT * FROM tb_grafik ORDER BY created_at DESC LIMIT 10";
 
 $result = mysqli_query($koneksi, $query);
 

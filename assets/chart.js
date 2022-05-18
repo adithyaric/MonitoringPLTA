@@ -58,7 +58,7 @@ $(document).ready(function () {
 
           yAxis: {
             title: {
-              text: "Satuan e opo ra erti",
+              text: "V, I",
             },
           },
 
@@ -66,7 +66,7 @@ $(document).ready(function () {
             categories: data_created_at,
             title: {
               enabled: true,
-              text: "Satuan e opo ra erti",
+              // text: "Satuan e opo ra erti",
             },
           },
 
@@ -121,7 +121,7 @@ $(document).ready(function () {
 
           yAxis: {
             title: {
-              text: "Number of Employees",
+              text: "V, I",
             },
           },
 
@@ -129,7 +129,7 @@ $(document).ready(function () {
             categories: data_created_at,
             title: {
               enabled: true,
-              text: "Satuan e opo ra erti",
+              // text: "Satuan e opo ra erti",
             },
           },
 
@@ -192,7 +192,7 @@ $(document).ready(function () {
             categories: data_created_at,
             title: {
               enabled: true,
-              text: "Satuan e opo ra erti",
+              // text: "Satuan e opo ra erti",
             },
           },
 
@@ -251,7 +251,7 @@ $(document).ready(function () {
             categories: data_created_at,
             title: {
               enabled: true,
-              text: "Satuan e opo ra erti",
+              // text: "Satuan e opo ra erti",
             },
           },
 
@@ -301,7 +301,7 @@ $(document).ready(function () {
 
           yAxis: {
             title: {
-              text: "Number of Employees",
+              text: "V, I, Wh",
             },
           },
 
@@ -309,7 +309,7 @@ $(document).ready(function () {
             categories: data_created_at,
             title: {
               enabled: true,
-              text: "Satuan e opo ra erti",
+              // text: "Satuan e opo ra erti",
             },
           },
 
