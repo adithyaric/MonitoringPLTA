@@ -1,11 +1,21 @@
 <?php include "header.php"; ?>
 <?php include "koneksi.php"; ?>
-
+<style>
+    h4 {
+        text-shadow: 0.5px 1px black;
+    }
+</style>
 <div class="container-fluid mt-5">
     <div class="row align-items-center">
         <div class="col-sm-6 mb-5">
             <div class="text-center">
-                <h1 class="display-4">Monitoring PLTA</h1>
+                <h2 class="">Sistem Kontrol dan Monitoring Pembangkit Listrik Tenaga Angin untuk Penerbangan Bagan berbasis IOT</h2>
+            </div>
+            <div class="text-center mt-5">
+                <div class="container">
+                    <h4 class="text-warning shadow ">Nama : Annisa Ummihani NIM : 0031903</h4>
+                    <h4 class="text-warning">Nama : Rendy Afreza NIM : 0031953</h4>
+                </div>
             </div>
         </div>
         <div class="col-sm-6 mb-5">
